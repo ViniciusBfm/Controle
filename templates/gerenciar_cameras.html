@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+    <title>Controle MBBV</title>
+    <!-- Tabelas-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet" />
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <main class="menu-infos">
+        <div id="solicitacao" class="cadastrar">
+            <div class="solicitacao-container">
+                <div class="titulo">
+                    <div>
+                        <h1>Gerenciar câmeras</h1>
+                    </div>       
+                </div>
+                <div class="solicitar-container">
+                    <div class="solicitar-box cadastrarbtn">
+                        <div>
+                            <h3 style="color: #00ac69;" >Cadastrar câmeras</h3>
+                            <p style="color: black;" >Clique aqui</p>
+                        </div>
+                        <img src="../static/image/solicitar.png" alt="todas solicitações">
+                    </div>
+                    <div class="solicitar-box visualizarbtn" href="#aprovadassolicitacoes">
+                        <div>
+                            <h3 style="color: #6900c7;">Visualizar câmeras</h3>
+                            <p style="color: black;" >{{quantidade_cameras}} cadastros</p>
+                        </div>                           
+                        <img src="../static/image/aprovadas.png" alt="Solicitações aprovadas">
+                    </div>
+                </div>
+                <div class="solicitacao-box">
+                    <div class="solicitar-form">
+                        <div id="infos2-solicitacao" class="infos2">
+                            <div id="solicitar" class="conteudo2 ">
+                                <h2 style="color: #00ac69;">Cadastrar câmeras</h2>
+                                <form action="{{ url_for('processar_cameras') }}" method="post" enctype="multipart/form-data">
+                                    <div class="solicitar-paginas">
+                                        <div>
+                                            <p>Nome:</p>
+                                            <input type="text" name="nome" required placeholder="Digite o nome cadastrado">
+                                        </div>
+                                        <div>
+                                            <p>Endereço IP final:</p>
+                                            <input type="number" name="ip" required placeholder="Digite endereço IP final">
+                                        </div>
+                                    </div>
+                                    <div class="solicitar-paginas">
+                                        <div>
+                                            <p>Posição DVR/Switch:</p>
+                                            <input type="text" name="posicao" required placeholder="Ex: PC03/SW06 ">
+                                        </div>
+                                        <div>
+                                            <p>DVR:</p>
+                                            <select name="dvr" required>
+                                                <option value="" disabled selected>Selecione o DVR</option>
+                                                {% for dv in dvr %}
+                                                    <option value="{{ dv }}">{{ dv }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>                               
+                                    <input type="submit" value="Salvar câmera">
+                                </form>
+                            </div>
+                        </div>       
+                    </div> 
+                    <div id="aprovadassolicitacoes" class="visualizar-cadastros">
+                        <h2 style="color: #6900c7;">Visualizar câmeras </h2>
+                        <table id="aprovadas-table" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>IP</th>
+                                    <th>Posição</th>
+                                    <th>DVR</th>
+                                    {% if funcao_do_usuario == 'admin' %}
+                                    <th>Excluir</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for cam in dados_cameras %}
+                                <tr>
+                                    <td>{{ cam[1] }}</td>
+                                    <td>{{ cam[2] }}</td>
+                                    <td>{{ cam[3] }}</td>    
+                                    <td>{{ cam[4] }}</td>
+                                    {% if funcao_do_usuario == 'admin' %}  
+                                    <td>
+                                        <form action="{{ url_for('excluir_cameras', cameras_id=cam[0]) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir esta impressora?');">
+                                            <button type="submit">Excluir</button>
+                                        </form>                                      
+                                    </td> 
+                                    {% endif %}                            
+                                </tr>
+                                {% endfor %}
+                            </tbody>       
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

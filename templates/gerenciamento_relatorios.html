@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+    <title>Controle MBBV</title>
+    <link href="../static/css/index.css" rel="stylesheet" />
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <main class="menu-infos">
+        <div id="gerarRelatorio">
+            <div class="titulo">
+                <h1>Gerar relatório</h1>
+            </div>
+            <div class="relarorio-container">
+                <div class="relatorio-box">
+                    <div class="relatorio-box-img">
+                        <img src="../static/image/relatorio1.png" alt="">
+                    </div>
+                    <div class="relatorio-box-info">
+                        <h4>Relatório - Acessos</h4>
+                        <p>Relatorio geral informando todos os acessos biométrico da unidade em formato PDF</p>
+                        <a href="{{ url_for('gerar_relatorio_acessos') }}" target="_blank">Gerar relatorio</a>
+                    </div>
+                </div>
+    
+                <div class="relatorio-box">
+                    <div class="relatorio-box-img">
+                        <img src="../static/image/relatorio3.png" alt="">
+                    </div>
+                    <div class="relatorio-box-info">
+                        <h4>Relatório - Computadores</h4>
+                        <p>Relatorio geral informando todos os computadores da unidade em formato PDF</p>
+                        <a href="{{ url_for('gerar_relatorio_computadores') }}" target="_blank">Gerar relatorio</a>
+                    </div>
+                </div>
+    
+                <div class="relatorio-box">
+                    <div class="relatorio-box-img">
+                        <img src="../static/image/relatorio4.png" alt="">
+                    </div>
+                    <div class="relatorio-box-info">
+                        <h4>Relatório - Impressoras</h4>
+                        <p>Relatorio geral informando todas as impressoras da unidade em formato PDF</p>
+                        <a href="{{ url_for('gerar_relatorio_impressoras') }}" target="_blank">Gerar relatorio</a>
+                    </div>
+                </div>
+    
+                <div class="relatorio-box">
+                    <div class="relatorio-box-img">
+                        <img src="../static/image/relatorio2.png" alt="">
+                    </div>
+                    <div class="relatorio-box-info">
+                        <h4>Relatório - Câmeras</h4>
+                        <p>Relatorio geral informando todas as câmeras da unidade em formato PDF</p>
+                        <a href="{{ url_for('gerar_relatorio_cameras') }}" target="_blank">Gerar relatorio</a>
+                    </div>
+                </div>
+                
+            </div>          
+        </div>
+    </main>
+    {% endblock %}
+
+</body>
+</html>

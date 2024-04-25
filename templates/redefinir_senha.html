@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+    <title>Redefinir Senha</title>
+    <link href="../static/css/login.css" rel="stylesheet" />
+</head>
+<body>
+    <form action="/redefinir_senha/{{ token }}"" class="forms forms-redefinir" method="post">      
+        <div>
+            <label for="nova_senha">Nova Senha:</label>
+            <div class="input-password">
+                <input id="senha" type="password" id="nova_senha" name="nova_senha" required>
+                <button id="mostrarSenha" class="ver-ocultar-senha" type="button"><img class="verocultar" src="../static/image/oculta-senha.png" alt="ver senha"> </button>
+            </div>         
+        </div>
+        <div>
+            <label for="confirmar_senha">Confirmar Nova Senha:</label>
+            <div class="input-password">
+                <input id="senha" type="password" id="confirmar_senha" name="confirmar_senha" required>
+                <button id="mostrarSenha" class="ver-ocultar-senha" type="button"><img class="verocultar" src="../static/image/oculta-senha.png" alt="ver senha"> </button>
+            </div>
+        </div>
+        <input type="submit" value="Redefinir Senha">
+    </form>
+    <script src="../static/js/index.js"></script>
+</body>
+</html>

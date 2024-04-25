@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+    <title>Controle MBBV</title>
+    <!-- Tabelas-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet" />
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <main class="menu-infos">
+        <div id="solicitacao" class="cadastrar">
+            <div class="solicitacao-container">
+                <div class="titulo">
+                    <div>
+                        <h1>Gerenciar computadores</h1>
+                    </div>       
+                </div>
+                <div class="solicitar-container">
+                    <div class="solicitar-box cadastrarbtn">
+                        <div>
+                            <h3 style="color: #00ac69;" >Cadastrar computador</h3>
+                            <p style="color: black;" >Clique aqui</p>
+                        </div>
+                        <img src="../static/image/solicitar.png" alt="todas solicitações">
+                    </div>
+                    <div class="solicitar-box visualizarbtn" href="#aprovadassolicitacoes">
+                        <div>
+                            <h3 style="color: #6900c7;">Visualizar computadores</h3>
+                            <p style="color: black;" >{{quantidade_computadores}} cadastros</p>
+                        </div>                           
+                        <img src="../static/image/aprovadas.png" alt="Solicitações aprovadas">
+                    </div>
+                </div>
+                <div class="solicitacao-box">
+                    <div class="solicitar-form">
+                        <div id="infos2-solicitacao" class="infos2">
+                            <div id="solicitar" class="conteudo2 ">
+                                <h2 style="color: #00ac69;">Cadastrar funcionário</h2>
+                                <form action="{{ url_for('processar_computadores') }}" method="post" enctype="multipart/form-data">
+                                    <div class="solicitar-paginas">
+                                        <div>
+                                            <p>Modelo:</p>
+                                            <input type="text" name="modelo" required placeholder="Modelo do computador">
+                                        </div>
+                                        <div>
+                                            <p>Tombo:</p>
+                                            <input type="number" name="tombo" required placeholder="Digite o tombo">
+                                        </div>
+                                    </div>
+                                    <div class="solicitar-paginas">
+                                        <div>
+                                            <p>Localização:</p>
+                                            <input type="text" name="localizacao" required placeholder="Localização">
+                                        </div>
+                                        <div>
+                                            <p>Tipo:</p>
+                                            <select name="tipo" required>
+                                                <option value="" disabled selected>Selecione o tipo</option>
+                                                {% for tip in tipo %}
+                                                    <option value="{{ tip }}">{{ tip }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>                               
+                                    <input type="submit" value="Salvar computador">
+                                </form>
+                            </div>
+                        </div>       
+                    </div> 
+                    <div id="aprovadassolicitacoes" class="visualizar-cadastros">
+                        <h2 style="color: #6900c7;">Visualizar computadores </h2>
+                        <table id="aprovadas-table" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tombo</th>
+                                    <th>Localização</th>
+                                    <th>Modelo</th>
+                                    {% if funcao_do_usuario == 'admin' %}
+                                    <th>Excluir</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for comp in dados_computadores %}
+                                <tr>
+                                    <td>{{ comp[1] }}</td>
+                                    <td>{{ comp[2] }}</td>
+                                    <td>{{ comp[3] }}</td>    
+                                    <td>{{ comp[4] }}</td>
+                                    {% if funcao_do_usuario == 'admin' %}
+                                    <td>
+                                        <form action="{{ url_for('excluir_computadores', computadores_id=comp[0]) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este computador?');">
+                                            <button type="submit">Excluir</button>
+                                        </form>                                       
+                                    </td>  
+                                    {% endif %}                           
+                                </tr>
+                                {% endfor %}
+                            </tbody>       
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

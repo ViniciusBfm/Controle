@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+    <title>Controle MBBV</title>
+    <!-- Tabelas-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet" />
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <main class="menu-infos">
+        <div id="solicitacao" class="cadastrar">
+            <div class="solicitacao-container">
+                <div class="titulo">
+                    <div>
+                        <h1>Usuários</h1
+                    </div>       
+                </div>
+                <div style="margin-top: 15px;" class="solicitacao-box">
+                    <div id="aprovadassolicitacoes" style="display: block;" class="visualizar-cadastros">
+                        <h2>Usuários cadastrados no sistema</h2>
+                        <table id="aprovadas-table" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Função cadastrada</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for usuario in usuarios %}
+                                <tr>
+                                    <td>{{ usuario[1] }}</td>
+                                    <td>{{ usuario[3] }}</td>    
+                                    <td>
+                                        <form action="{{ url_for('excluir_usuario', usuario_id=usuario[0]) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este acesso?');">
+                                            <button type="submit">Excluir</button>
+                                        </form>
+                                                                               
+                                    </td>                             
+                                </tr>
+                                {% endfor %}
+                            </tbody>       
+                        </table>
+                    </div>
+                    
+                </div>
+                <div style="display: none;" class="solicitar-container">
+                    <div  class="solicitar-box cadastrarbtn">
+                        <div>
+                            <h3 style="color: #00ac69;" >Cadastrar funcionário</h3>
+                            <p style="color: black;" >Clique aqui</p>
+                        </div>
+                        <img src="../static/image/solicitar.png" alt="todas solicitações">
+                    </div>
+                    <div class="solicitar-box visualizarbtn" href="#aprovadassolicitacoes">
+                        <div>
+                            <h3 style="color: #6900c7;">Visualizar cadastros</h3>
+                            <p style="color: black;" >{{quantidade_acessos}} cadastrados</p>
+                        </div>                           
+                        <img src="../static/image/aprovadas.png" alt="Solicitações aprovadas">
+                    </div>
+                </div>
+                
+            </div>    
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

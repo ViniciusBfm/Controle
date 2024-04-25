@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Controle MBBV{% endblock %}</title>
+    <link href="../static/css/index.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image-x/png" href="../static/image/icone.ico">
+</head>
+<body>
+    <header>
+        <div class="header-info">
+            <h1>Controle MBBV</h1>
+            <img class="menu-btn" src="../static/image/menu.png" alt="">     
+        </div>
+        <div class="header-perfil">
+            <h6>Usuário: {{ nome_usuario }}</h6>
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
+                    <img src="../static/image/sair.png" alt="Sair">
+                </button>
+            </form>
+        </div>
+    </header>
+    <section class="container">
+        <nav class="menu" id="menu">
+            <ul>
+                <ul class="menu-box" >
+                    <h3 class="localizar">Dashboard</h3>
+                    <li class="menu-drop">
+                        <div class="menu-a1">
+                            <div>
+                                <img class="iconeimg" src="../static/image/gerenciar.png" alt="">
+                                <a class="link1 dropbtn">Gerenciar</a>
+                            </div>
+                        </div>
+                    </li>
+                    <div class="drop">
+                        <li class="drop-li">
+                            <div class="menu-a1">
+                                <div>
+                                    <img class="iconeimg" src="../static/image/acesso.png" alt="">
+                                    <a class="link1"  href="{{ url_for('gerenciar_acesso') }}"  >Acessos</a>
+                                </div>
+                                <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                            </div>
+                        </li>
+                        <li class="drop-li">
+                            <div class="menu-a1">
+                                <div>
+                                    <img class="iconeimg" src="../static/image/computadores.png" alt="">
+                                    <a class="link1"  href="{{ url_for('gerenciar_computadores') }}"  >Computadores</a>
+                                </div>
+                                <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                            </div>
+                        </li>
+                        <li class="drop-li">
+                            <div class="menu-a1">
+                                <div>
+                                    <img class="iconeimg" src="../static/image/impressora.png" alt="">
+                                    <a class="link1"  href="{{ url_for('gerenciar_impressoras') }}"  >Impressoras</a>
+                                </div>
+                                <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="menu-a1">
+                                <div>
+                                    <img class="iconeimg" src="../static/image/camera.png" alt="">
+                                    <a class="link1"  href="{{ url_for('gerenciar_cameras') }}"  >Câmeras</a>
+                                </div>
+                                <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                            </div>
+                        </li>
+                    </div>
+                    
+                </ul>  
+                <ul class="menu-box">
+                    <h3 class="localizar" style="margin-top: 20px;">Relatórios</h3>
+                    <li class="menudiv1" >
+                        <div class="menu-a1">
+                            <div>
+                                <img class="iconeimg" src="../static/image/relatorio.png" alt="">
+                                <a class="link1" href="{{ url_for('gerenciamento_relatorio') }}" >Gerar Relatório</a>
+                            </div>
+                            <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                        </div>
+                    </li>
+                </ul>
+                {% if funcao_do_usuario == 'admin' %}
+                    <ul class="menu-box">
+                        <h3 class="localizar" style="margin-top: 20px;">Painel admin</h3>
+                        <li class="menudiv1">
+                            <div class="menu-a1">
+                                <div>
+                                    <img class="iconeimg" src="../static/image/admin.png" alt="">
+                                    <a class="link1" href="{{ url_for('usuarios') }}">Usuários</a>
+                                </div>
+                                <img class="setaimg" src="../static/image/seta-direita.png" alt="">
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+            </ul>
+        </nav>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </section>
+
+    <script src="../static/js/app.js"></script>
+</body>
+</html>
